@@ -1,6 +1,6 @@
 {
-  "name": "AdBlock Extension",
-  "description": "AdBlock extension in TypeScript!",
+  "name": "크립토옵티마 for 업비트(Upbit)",
+  "description": "가상화폐 트레이딩의 최적화를 위한 프로그램입니다. 매수・매도 단축키, 자동감시주문, 실시간 특징주 필터링 등의 통해 가상화폐 트레이딩의 효율성을 높일 수 있습니다.",
   "version": "1.0.0",
   "manifest_version": 3,
   "icons": {
@@ -10,7 +10,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "AdBlock Extension",
+    "default_title": "Cryptoptima",
     "default_icon": "icon.png"
   },
   "permissions": ["storage"],
