@@ -1,6 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import type { currentNavType } from '../../popup/popup';
 
 interface HeaderNavListType {
   id: string;
@@ -48,7 +46,7 @@ const NavigationBar = ({ currentNav, setCurrentNav }: NavigationBarType) => {
         {headerNavList.map((el) => (
           <li className={`${el.className} cursor-pointer`} key={el.className}>
             <div
-              className={`${navigationClassName} ${
+              className={`font-bold ${navigationClassName} ${
                 currentNav === el.id && 'text-mainColor'
               } relative ${navigationAfterClassName}`}
               onClick={() => setCurrentNav(el.id)}

@@ -18,8 +18,10 @@ const App: React.FC<{}> = () => {
 
   return (
     <div className='w-[560px]'>
-      <Header />
-      <NavigationBar currentNav={currentNav} setCurrentNav={setCurrentNav} />
+      <div className="sticky top-0 bg-white z-[9999]">
+        <Header />
+        <NavigationBar currentNav={currentNav} setCurrentNav={setCurrentNav} />
+      </div>
       {currentNav === 'nav1' && <Hotkey />}
       {currentNav === 'nav2' && <Screen />}
       {currentNav === 'nav3' && <Order />}

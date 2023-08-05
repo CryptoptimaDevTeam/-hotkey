@@ -15,7 +15,7 @@ const OrderSideNavBar = ({ currentNav, setNav }: OrderSideNavBarType) => {
             key={el.value}
             className={`${
               currentNav === el.value ? 'bg-mainColor text-white' : ''
-            } px-5 cursor-pointer h-[40px] text-[14px] flex items-center`}
+            } px-5 cursor-pointer h-[40px] text-[13px] font-medium flex items-center`}
             onClick={() => setNav(el.value)}
           >
             {el.name}
