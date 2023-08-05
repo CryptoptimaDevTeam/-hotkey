@@ -31,7 +31,7 @@ const NavigationBar = ({ currentNav, setCurrentNav }: NavigationBarType) => {
     {
       id: 'nav4',
       className: 'notification',
-      navName: '공지사항',
+      navName: '안내사항',
     },
   ];
 
