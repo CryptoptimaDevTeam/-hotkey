@@ -3,12 +3,15 @@ import type { NavType } from '../../pages/order';
 
 interface OrderSideNavBarType {
   currentNav: NavType;
-  setNav: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentNav: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const OrderSideNavBar = ({ currentNav, setNav }: OrderSideNavBarType) => {
+const OrderSideNavBar = ({
+  currentNav,
+  setCurrentNav,
+}: OrderSideNavBarType) => {
   return (
-    <nav className='order-side-navigation-bar w-[130px] h-full border-r-[1px] border-borderColor'>
+    <nav className='order-side-navigation-bar min-w-[130px] h-full border-r-[1px] border-borderColor'>
       <div className='navigation-list-container sticky'>
         {order_side_navigation_list.map((el) => (
           <div
@@ -16,7 +19,7 @@ const OrderSideNavBar = ({ currentNav, setNav }: OrderSideNavBarType) => {
             className={`${
               currentNav === el.value ? 'bg-mainColor text-white' : ''
             } px-5 cursor-pointer h-[40px] text-[13px] font-medium flex items-center`}
-            onClick={() => setNav(el.value)}
+            onClick={() => setCurrentNav(el.value)}
           >
             {el.name}
           </div>

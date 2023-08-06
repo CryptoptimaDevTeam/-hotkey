@@ -36,8 +36,10 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
+    "@types/har-format": "^1.2.11",
     "api": "^6.1.0",
     "axios": "^1.4.0",
+    "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1"
   }
 }
