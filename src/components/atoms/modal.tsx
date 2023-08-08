@@ -6,6 +6,7 @@ interface ModalProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalWidth?: string;
+  protectClosing?: boolean;
 }
 export type { ModalProps };
 
@@ -14,8 +15,12 @@ export const Modal = ({
   setIsOpen,
   children,
   modalWidth,
+  protectClosing,
 }: PropsWithChildren<ModalProps>) => {
   const closeModalHandler = () => {
+    if (protectClosing) {
+      return;
+    }
     setIsOpen(!isOpen);
   };
 
@@ -34,11 +39,13 @@ export const Modal = ({
           onClick={(e) => e.stopPropagation()}
         >
           <div className='modal-veiw-close-button h-5 flex justify-end items-center'>
-            <IoClose
-              className='cursor-pointer p-2.5 -mr-2.5 -mt-2.5 z-[3]'
-              size='36'
-              onClick={closeModalHandler}
-            />
+            {!protectClosing && (
+              <IoClose
+                className='cursor-pointer p-2.5 -mr-2.5 -mt-2.5 z-[3]'
+                size='36'
+                onClick={closeModalHandler}
+              />
+            )}
           </div>
           <div className='modal-content pt-5 pb-5'>{children}</div>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface upbitListType {
+export interface upbitListType {
   market: string;
   korean_name: string;
   english_name: string;

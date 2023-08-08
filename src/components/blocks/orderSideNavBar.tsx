@@ -11,13 +11,15 @@ const OrderSideNavBar = ({
   setCurrentNav,
 }: OrderSideNavBarType) => {
   return (
-    <nav className='order-side-navigation-bar min-w-[130px] h-full border-r-[1px] border-borderColor'>
-      <div className='navigation-list-container sticky'>
+    <nav className='order-side-navigation-bar min-w-[130px] border-r-[1px] border-borderColor'>
+      <div className='navigation-list-container sticky top-[121px]'>
         {order_side_navigation_list.map((el) => (
           <div
             key={el.value}
             className={`${
-              currentNav === el.value ? 'bg-mainColor text-white' : ''
+              currentNav === el.value
+                ? 'bg-mainColor text-white'
+                : 'hover:bg-[#f1f3f5]'
             } px-5 cursor-pointer h-[40px] text-[13px] font-medium flex items-center`}
             onClick={() => setCurrentNav(el.value)}
           >

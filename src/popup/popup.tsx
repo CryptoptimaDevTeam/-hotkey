@@ -18,7 +18,7 @@ const App: React.FC<{}> = () => {
 
   return (
     <div className='w-[560px]'>
-      <div className="sticky top-0 bg-white z-[9999]">
+      <div className='sticky top-0 bg-white z-20'>
         <Header />
         <NavigationBar currentNav={currentNav} setCurrentNav={setCurrentNav} />
       </div>

@@ -33,7 +33,7 @@ const Hotkey: React.FC = () => {
           >
             <button
               className='bg-mainColor text-white w-[200px] h-[50px] 
-            text-[14px] font-semibold rounded-xl'
+            text-[14px] font-semibold rounded-xl hover:bg-mainUpColor'
             >
               + 단축키 추가하기
             </button>
@@ -67,7 +67,7 @@ const Hotkey: React.FC = () => {
           >
             <button
               className='bg-mainColor text-white w-[200px] h-[50px] 
-            text-[14px] font-semibold rounded-xl'
+            text-[14px] font-semibold rounded-xl hover:bg-mainUpColor'
             >
               + 단축키 추가하기
             </button>
