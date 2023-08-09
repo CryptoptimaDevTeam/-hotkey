@@ -1,5 +1,6 @@
 import OrderConditionInputs from './orderConditionInputs';
 import { InputSelectH, InputTextH } from '../atoms/input';
+import OrderListWrapper from './orderListWrapper';
 import { useUpbitList } from '../../hooks/useUpbitList';
 import type { NavType, TabType } from '../../pages/order';
 
@@ -133,7 +134,9 @@ const OrderConditionWrapper = ({
         )}
 
         {currentNav === 'details' && (
-          <div className='order-list-container'></div>
+          <div className='order-list-container'>
+            <OrderListWrapper />
+          </div>
         )}
         {currentNav === 'alert' && (
           <div className='w-full h-[400px] flex justify-center items-center font-bold'>
