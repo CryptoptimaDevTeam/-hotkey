@@ -2,10 +2,10 @@ const OrderListWrapper = () => {
   return (
     <div className='order-list-wrapper flex flex-col gap-5 p-5 border-b-[1px] border-borderColor'>
       <div className='order-meta-info flex text-center text-[14px] items-center font-semibold'>
-        <div className='order-number basis-[15%]'>주문번호</div>
-        <div className='order-coin-name basis-[30%]'>코인종류</div>
-        <div className='order-type basis-[40%]'>시세 감시 주문 종류</div>
-        <div className='order-cancel-button basis-[15%] flex items-center justify-center'>
+        <div className='order-number basis-[20%] flex justify-end items-center'>주문번호</div>
+        <div className='order-coin-name basis-[30%] flex justify-center items-center'>코인종류</div>
+        <div className='order-type basis-[40%] flex justify-center items-center'>시세 감시 주문 종류</div>
+        <div className='order-cancel-button basis-[10%] flex items-center justify-end'>
           <div
             className='text-mainColor text-[12px] border-[1px] border-borderColor 
           px-[5px] py-[1px] rounded-[5px] cursor-pointer hover:bg-slate-100'

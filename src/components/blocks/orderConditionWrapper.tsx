@@ -134,7 +134,7 @@ const OrderConditionWrapper = ({
         )}
 
         {currentNav === 'details' && (
-          <div className='order-list-container'>
+          <div className='order-list-container min-h-[400px]'>
             <OrderListWrapper />
           </div>
         )}
