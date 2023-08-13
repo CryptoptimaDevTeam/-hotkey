@@ -6,7 +6,7 @@ import HotkeyListToggle from '../components/blocks/hotkeyListToggle';
 const Hotkey: React.FC = () => {
   return (
     <main className='hotkey-main min-h-[500px]'>
-      <HotkeyListToggle title='주문 관련 단축키 설정'>
+      <HotkeyListToggle title='주문 관련 단축키 설정' type='order'>
         <li className='flex justify-center items-center px-5 pb-5'>
           <div className='basis-[7%] flex justify-center items-center'></div>
           <div className='basis-[38%] flex justify-center items-center text-sm font-semibold'>
@@ -40,7 +40,7 @@ const Hotkey: React.FC = () => {
           </div>
         </li>
       </HotkeyListToggle>
-      <HotkeyListToggle title='종목 바로가기 단축키 설정'>
+      <HotkeyListToggle title='종목 바로가기 단축키 설정' type='coin'>
         <li className='flex justify-center items-center px-5 pb-5'>
           <div className='basis-[7%] flex justify-center items-center'></div>
           <div className='basis-[38%] flex justify-center items-center text-sm font-semibold'>

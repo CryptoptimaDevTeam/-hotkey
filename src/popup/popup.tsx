@@ -14,6 +14,10 @@ export type PropsWithChildren<P> = P & {
 export type currentNavType = 'nav1' | 'nav2' | 'nav3' | 'nav4';
 
 const App: React.FC<{}> = () => {
+  chrome.storage.sync.get(null, (data) => {
+    console.log(data);
+  });
+
   const [currentNav, setCurrentNav] = useState<currentNavType>('nav1');
 
   return (

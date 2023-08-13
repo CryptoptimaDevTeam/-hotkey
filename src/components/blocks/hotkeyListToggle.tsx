@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { Switch } from '@mui/material';
 import Dropdown from '../atoms/dropdown';
@@ -6,18 +6,55 @@ import type { PropsWithChildren } from '../../popup/popup';
 
 interface HotkeyListToggleType {
   title: string;
+  type: 'order' | 'coin';
 }
 
 const HotkeyListToggle = ({
   title,
+  type,
   children,
 }: PropsWithChildren<HotkeyListToggleType>) => {
-  //TODO: Chrome Storage와의 연결 필요(초기값 설정)
   const [isActive, setIsActive] = useState<boolean>(false);
   const [dropdownVisibility, setDropdownVisibility] = useState(true);
 
-  //TODO: Chrome Storage와의 연결 필요(변경사항 반영)
+  useEffect(() => {
+    chrome.storage.sync.get('hotkey', (data) => {
+      if (type === 'order') {
+        setIsActive(data.hotkey.isOrderHotkeyActive);
+      } else if (type === 'coin') {
+        setIsActive(data.hotkey.isCoinHotkeyActive);
+      }
+    });
+  }, []);
+
   const switchButtonHandle = () => {
+    if (type === 'order') {
+      chrome.storage.sync.get('hotkey', (data) => {
+        const prevData = data.hotkey;
+
+        const newData = {
+          ...prevData,
+          isOrderHotkeyActive: !isActive,
+        };
+
+        chrome.storage.sync.set({ hotkey: newData }, () => {
+          console.log('Data updated:', newData);
+        });
+      });
+    } else if (type === 'coin') {
+      chrome.storage.sync.get('hotkey', (data) => {
+        const prevData = data.hotkey;
+
+        const newData = {
+          ...prevData,
+          isCoinHotkeyActive: !isActive,
+        };
+
+        chrome.storage.sync.set({ hotkey: newData }, () => {
+          console.log('Data updated:', newData);
+        });
+      });
+    }
     setIsActive(!isActive);
   };
 
@@ -27,7 +64,7 @@ const HotkeyListToggle = ({
         <div className='flex items-center gap-2.5 py-5 basis-[50%]'>
           <div className='text-[16px] font-bold'>{title}</div>
           <div>
-            <Switch value={isActive} onChange={switchButtonHandle} />
+            <Switch checked={isActive} onChange={switchButtonHandle} />
           </div>
         </div>
         <div className='dropdown-button basis-[50%] flex justify-end'>

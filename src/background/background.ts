@@ -1,4 +1,13 @@
-// TODO: background script
+import {
+  HotkeyInitial,
+  ScreenInitial,
+  OrderInitial,
+} from '../static/localData';
+
 chrome.runtime.onInstalled.addListener(() => {
-  // TODO: on installed function
-})
+  chrome.storage.sync.set({
+    hotkey: HotkeyInitial,
+    screen: ScreenInitial,
+    order: OrderInitial,
+  });
+});
