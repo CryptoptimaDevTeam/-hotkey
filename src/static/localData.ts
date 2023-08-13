@@ -1,18 +1,18 @@
 export interface HotkeyType {
   isOrderHotkeyActive: boolean;
   isCoinHotkeyActive: boolean;
-  orderHotkeyList: Array<OHLType> | [];
-  coinHotkeyList: Array<CHLType> | [];
+  orderHotkeyList: Array<OHLType>;
+  coinHotkeyList: Array<CHLType>;
 }
 
-interface OHLType {
+export interface OHLType {
   front: string;
   back: string;
   command: string;
   isActive: boolean;
 }
 
-interface CHLType {
+export interface CHLType {
   hotkey: string;
   command: string;
   isActive: boolean;
@@ -21,8 +21,54 @@ interface CHLType {
 export const HotkeyInitial: HotkeyType = {
   isOrderHotkeyActive: false,
   isCoinHotkeyActive: false,
-  orderHotkeyList: [],
-  coinHotkeyList: [],
+  orderHotkeyList: [
+    {
+      front: 'none',
+      back: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      front: 'none',
+      back: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      front: 'none',
+      back: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      front: 'none',
+      back: 'none',
+      command: 'none',
+      isActive: false,
+    },
+  ],
+  coinHotkeyList: [
+    {
+      hotkey: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      hotkey: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      hotkey: 'none',
+      command: 'none',
+      isActive: false,
+    },
+    {
+      hotkey: 'none',
+      command: 'none',
+      isActive: false,
+    },
+  ],
 };
 
 export interface ScreenType {
@@ -60,7 +106,7 @@ export interface OrderType {
   targetAlertList: Array<TALType> | [];
 }
 
-interface COLType {
+export interface COLType {
   position: 'buy' | 'sell';
   coin: string;
   targetPrice: number;
@@ -70,13 +116,13 @@ interface COLType {
   proportion: number;
 }
 
-interface TSOLType extends COLType {
+export interface TSOLType extends COLType {
   stopCondition: string;
   stopRate: number;
   stopBase: string;
 }
 
-interface TALType {
+export interface TALType {
   coin: string;
   targetPrice: number;
   condition: string;

@@ -9,22 +9,23 @@ import {
   hotkey_order_related,
   hotkey_order_tab,
 } from '../../static/hotkey/order';
+import type { OHLType } from '../../static/localData';
 
-interface hotkeyOrderType {
-  front: string;
-  back: string;
-  command: string;
-  isActive: boolean;
+interface HotkeyListOrderType {
+  isFixed: boolean;
+  idx: number;
+  hotkeyOrder: OHLType;
+  setOrderHotkeyList: React.Dispatch<React.SetStateAction<Array<OHLType>>>;
 }
 
-const HotkeyListOrder: React.FC = () => {
+const HotkeyListOrder = ({
+  isFixed,
+  idx,
+  hotkeyOrder,
+  setOrderHotkeyList,
+}: HotkeyListOrderType) => {
   //TODO: 아마 hotkeyOrder 데이터를 상위에서 관리해야 할 듯
-  const [hotkeyOrder, setHotkeyOrder] = useState<hotkeyOrderType>({
-    front: 'none',
-    back: 'none',
-    command: 'none',
-    isActive: false,
-  });
+
   const [alertStatus, setAlertStatus] = useState({
     top: 'top-0',
     isOpen: false,
@@ -33,7 +34,7 @@ const HotkeyListOrder: React.FC = () => {
   });
 
   const switchButtonHandle = () => {
-    if (hotkeyOrder.isActive == false) {
+    if (hotkeyOrder.isActive === false) {
       if (
         hotkeyOrder.front !== 'none' &&
         hotkeyOrder.back !== 'none' &&
@@ -49,20 +50,20 @@ const HotkeyListOrder: React.FC = () => {
   };
 
   return (
-    <li className='hotkey-list-order-container border-t-[1px] border-borderColor'>
-      <form className='h-[80px] flex justify-between items-center px-5'>
-        <div className='list-numb basis-[7%] flex items-center'>1</div>
+    <li className="hotkey-list-order-container border-t-[1px] border-borderColor">
+      <form className="h-[80px] flex justify-between items-center px-5">
+        <div className="list-numb basis-[7%] flex items-center">1</div>
 
-        <div className='hotkey-selection basis-[43%] flex'>
-          <div className='w-full flex justify-center items-center'>
+        <div className="hotkey-selection basis-[43%] flex">
+          <div className="w-full flex justify-center items-center">
             <select
-              className='h-[40px] border-[1px] border-borderColor rounded-md basis-[50%] text-center cursor-pointer'
+              className="h-[40px] border-[1px] border-borderColor rounded-md basis-[50%] text-center cursor-pointer"
               value={hotkeyOrder.front}
               onChange={(e) => {
                 setHotkeyOrder({ ...hotkeyOrder, front: e.target.value });
               }}
             >
-              <option value='none' disabled>
+              <option value="none" disabled>
                 미지정
               </option>
               {hotkey_order_front.map((el) => (
@@ -71,17 +72,17 @@ const HotkeyListOrder: React.FC = () => {
                 </option>
               ))}
             </select>
-            <div className='basis-[10%] text-center text-[16px] font-bold'>
+            <div className="basis-[10%] text-center text-[16px] font-bold">
               +
             </div>
             <select
-              className='h-[40px] border-[1px] border-borderColor rounded-md basis-[40%] text-center cursor-pointer'
+              className="h-[40px] border-[1px] border-borderColor rounded-md basis-[40%] text-center cursor-pointer"
               value={hotkeyOrder.back}
               onChange={(e) => {
                 setHotkeyOrder({ ...hotkeyOrder, back: e.target.value });
               }}
             >
-              <option value='none' disabled>
+              <option value="none" disabled>
                 미지정
               </option>
               {hotkey_order_back.map((el) => (
@@ -93,10 +94,10 @@ const HotkeyListOrder: React.FC = () => {
           </div>
         </div>
 
-        <div className='order-selection basis-[42%] flex pl-5'>
-          <div className='flex w-full items-center'>
+        <div className="order-selection basis-[42%] flex pl-5">
+          <div className="flex w-full items-center">
             <select
-              className='w-[175px] h-[40px] border-[1px] border-borderColor rounded-md text-center cursor-pointer'
+              className="w-[175px] h-[40px] border-[1px] border-borderColor rounded-md text-center cursor-pointer"
               value={hotkeyOrder.command}
               onChange={(e) => {
                 setHotkeyOrder({ ...hotkeyOrder, command: e.target.value });
@@ -105,28 +106,28 @@ const HotkeyListOrder: React.FC = () => {
               <option value={'none'} disabled>
                 미지정
               </option>
-              <optgroup label='시장가 주문'>
+              <optgroup label="시장가 주문">
                 {hotkey_order_market.map((el) => (
                   <option key={el.value} value={el.value}>
                     {el.name}
                   </option>
                 ))}
               </optgroup>
-              <optgroup label='지정가 주문'>
+              <optgroup label="지정가 주문">
                 {hotkey_order_limit.map((el) => (
                   <option key={el.value} value={el.value}>
                     {el.name}
                   </option>
                 ))}
               </optgroup>
-              <optgroup label='주문 관련'>
+              <optgroup label="주문 관련">
                 {hotkey_order_related.map((el) => (
                   <option key={el.value} value={el.value}>
                     {el.name}
                   </option>
                 ))}
               </optgroup>
-              <optgroup label='탭 이동'>
+              <optgroup label="탭 이동">
                 {hotkey_order_tab.map((el) => (
                   <option key={el.value} value={el.value}>
                     {el.name}
@@ -137,9 +138,9 @@ const HotkeyListOrder: React.FC = () => {
           </div>
         </div>
 
-        <div className='availability-switch basis-[8%] flex justify-center items-center'>
+        <div className="availability-switch basis-[8%] flex justify-center items-center">
           <Switch
-            size='medium'
+            size="medium"
             onChange={switchButtonHandle}
             checked={hotkeyOrder.isActive}
           />
