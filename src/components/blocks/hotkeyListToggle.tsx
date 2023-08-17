@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { Switch } from '@mui/material';
 import Dropdown from '../atoms/dropdown';
+import { setHotkeyState } from '../../util/setHotkeyData';
 import type { PropsWithChildren } from '../../popup/popup';
 
 interface HotkeyListToggleType {
@@ -28,34 +29,9 @@ const HotkeyListToggle = ({
   }, []);
 
   const switchButtonHandle = () => {
-    if (type === 'order') {
-      chrome.storage.sync.get('hotkey', (data) => {
-        const prevData = data.hotkey;
-
-        const newData = {
-          ...prevData,
-          isOrderHotkeyActive: !isActive,
-        };
-
-        chrome.storage.sync.set({ hotkey: newData }, () => {
-          console.log('Data updated:', newData);
-        });
-      });
-    } else if (type === 'coin') {
-      chrome.storage.sync.get('hotkey', (data) => {
-        const prevData = data.hotkey;
-
-        const newData = {
-          ...prevData,
-          isCoinHotkeyActive: !isActive,
-        };
-
-        chrome.storage.sync.set({ hotkey: newData }, () => {
-          console.log('Data updated:', newData);
-        });
-      });
-    }
-    setIsActive(!isActive);
+    setHotkeyState({ type, isActive: !isActive }).then((res) => {
+      setIsActive(!isActive);
+    });
   };
 
   return (

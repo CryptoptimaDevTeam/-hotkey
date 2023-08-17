@@ -3,17 +3,23 @@ import { Switch } from '@mui/material';
 import { Alert } from '../atoms/alert';
 import { hotkey_coin_key } from '../../static/hotkey/coin';
 import { useUpbitList } from '../../hooks/useUpbitList';
+import type { CHLType } from '../../static/localData';
 
-interface hotkeyCoinType {
-  key: string;
-  command: string;
-  isActive: boolean;
+interface HotkeyListCoinType {
+  isFixed: boolean;
+  idx: number;
+  coinHotkeyData: CHLType;
+  setCoinHotkeyList: React.Dispatch<React.SetStateAction<Array<CHLType>>>;
 }
 
-const HotkeyListCoin: React.FC = () => {
-  //TODO: 아마 hotkeyCoin 데이터를 상위에서 관리해야 할 듯
-  const [hotkeyCoin, setHotkeyCoin] = useState<hotkeyCoinType>({
-    key: 'none',
+const HotkeyListCoin = ({
+  isFixed,
+  idx,
+  coinHotkeyData,
+  setCoinHotkeyList,
+}: HotkeyListCoinType) => {
+  const [hotkeyCoin, setHotkeyCoin] = useState<CHLType>({
+    hotkey: 'none',
     command: 'none',
     isActive: false,
   });
@@ -29,7 +35,7 @@ const HotkeyListCoin: React.FC = () => {
 
   const switchButtonHandle = () => {
     if (hotkeyCoin.isActive === false) {
-      if (hotkeyCoin.key !== 'none' && hotkeyCoin.command !== 'none') {
+      if (hotkeyCoin.hotkey !== 'none' && hotkeyCoin.command !== 'none') {
         setHotkeyCoin({ ...hotkeyCoin, isActive: true });
       } else {
         setAlertStatus({ ...alertStatus, isOpen: true });
@@ -42,15 +48,15 @@ const HotkeyListCoin: React.FC = () => {
   return (
     <li className='hotkey-list-order-container border-t-[1px] border-borderColor'>
       <form className='h-[80px] flex justify-between items-center px-5'>
-        <div className='list-numb basis-[7%] flex items-center'>1</div>
+        <div className='list-numb basis-[7%] flex items-center'></div>
 
         <div className='hotkey-selection basis-[43%] flex'>
           <div className='w-full flex justify-center items-center'>
             <select
               className='w-full h-[40px] border-[1px] border-borderColor rounded-md text-center'
-              value={hotkeyCoin.key}
+              value={hotkeyCoin.hotkey}
               onChange={(e) => {
-                setHotkeyCoin({ ...hotkeyCoin, key: e.target.value });
+                setHotkeyCoin({ ...hotkeyCoin, hotkey: e.target.value });
               }}
             >
               <option value='none' disabled>
