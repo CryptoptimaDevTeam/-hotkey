@@ -17,7 +17,6 @@ const App: React.FC<{}> = () => {
   chrome.storage.sync.get(null, (data) => {
     console.log(data);
   });
-
   const [currentNav, setCurrentNav] = useState<currentNavType>('nav1');
 
   return (

@@ -20,7 +20,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://upbit.com/exchange/*"],
+      "matches": ["*://upbit.com/exchange/*"],
       "js": ["contentScript.js"]
     }
   ]

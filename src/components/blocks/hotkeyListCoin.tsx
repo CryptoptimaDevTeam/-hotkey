@@ -3,6 +3,7 @@ import { Switch } from '@mui/material';
 import { Alert } from '../atoms/alert';
 import { hotkey_coin_key } from '../../static/hotkey/coin';
 import { useUpbitList } from '../../hooks/useUpbitList';
+import { setHotkeyListData } from '../../util/setHotkeyData';
 import type { CHLType } from '../../static/localData';
 
 interface HotkeyListCoinType {
@@ -18,11 +19,7 @@ const HotkeyListCoin = ({
   coinHotkeyData,
   setCoinHotkeyList,
 }: HotkeyListCoinType) => {
-  const [hotkeyCoin, setHotkeyCoin] = useState<CHLType>({
-    hotkey: 'none',
-    command: 'none',
-    isActive: false,
-  });
+  const [hotkeyCoin, setHotkeyCoin] = useState<CHLType>(coinHotkeyData);
 
   const hotkey_coin_command = useUpbitList() || [];
 
@@ -33,22 +30,74 @@ const HotkeyListCoin = ({
     type: 'caution',
   });
 
+  const [isMouseOver, setIsMouseOver] = useState(false);
+
   const switchButtonHandle = () => {
     if (hotkeyCoin.isActive === false) {
       if (hotkeyCoin.hotkey !== 'none' && hotkeyCoin.command !== 'none') {
-        setHotkeyCoin({ ...hotkeyCoin, isActive: true });
+        const newHotkeyCoin = { ...hotkeyCoin, isActive: true };
+        setHotkeyListData({
+          type: 'coin',
+          data: newHotkeyCoin,
+          idx,
+        }).then((res) => {
+          setHotkeyCoin(newHotkeyCoin);
+          setCoinHotkeyList((prev) => {
+            const updated = prev;
+            updated[idx] = newHotkeyCoin;
+            return updated;
+          });
+        });
       } else {
         setAlertStatus({ ...alertStatus, isOpen: true });
       }
     } else {
-      setHotkeyCoin({ ...hotkeyCoin, isActive: false });
+      const newHotkeyCoin = { ...hotkeyCoin, isActive: false };
+      setHotkeyListData({
+        type: 'coin',
+        data: newHotkeyCoin,
+        idx,
+      }).then((res) => {
+        setHotkeyCoin(newHotkeyCoin);
+        setCoinHotkeyList((prev) => {
+          const updated = prev;
+          updated[idx] = newHotkeyCoin;
+          return updated;
+        });
+      });
     }
+  };
+
+  const deleteButtonHandle = () => {
+    if (isFixed) {
+      return;
+    }
+    setHotkeyListData({
+      type: 'coin',
+      data: 'delete',
+      idx,
+    }).then((res) => {
+      setCoinHotkeyList((prev) => prev.filter((el, index) => index !== idx));
+    });
   };
 
   return (
     <li className='hotkey-list-order-container border-t-[1px] border-borderColor'>
       <form className='h-[80px] flex justify-between items-center px-5'>
-        <div className='list-numb basis-[7%] flex items-center'></div>
+        <div
+          className={`list-numb basis-[7%] flex items-center text-center pl-[4px] ${
+            isMouseOver && 'cursor-pointer text-lg pl-[0px]'
+          }`}
+          onMouseOver={() => {
+            !isFixed && setIsMouseOver(true);
+          }}
+          onMouseLeave={() => {
+            !isFixed && setIsMouseOver(false);
+          }}
+          onClick={deleteButtonHandle}
+        >
+          {!isFixed && isMouseOver ? 'X' : idx + 1}
+        </div>
 
         <div className='hotkey-selection basis-[43%] flex'>
           <div className='w-full flex justify-center items-center'>

@@ -3,7 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import HotkeyListOrder from '../components/blocks/hotkeyListOrder';
 import HotkeyListCoin from '../components/blocks/hotkeyListCoin';
 import HotkeyListToggle from '../components/blocks/hotkeyListToggle';
+import { setHotkeyListData } from '../util/setHotkeyData';
 import type { OHLType, CHLType } from '../static/localData';
+
+type createButtonHandleType = 'order' | 'coin';
 
 const Hotkey: React.FC = () => {
   const [orderHotkeyList, setOrderHotkeyList] = useState<Array<OHLType>>([]);
@@ -15,6 +18,39 @@ const Hotkey: React.FC = () => {
       setCoinHotkeyList(data.hotkey.coinHotkeyList);
     });
   }, []);
+
+  const createButtonHandle = async (type: createButtonHandleType) => {
+    if (type === 'order') {
+      const newData: OHLType = {
+        front: 'none',
+        back: 'none',
+        command: 'none',
+        isActive: false,
+      };
+
+      setHotkeyListData({
+        type,
+        data: newData,
+        idx: orderHotkeyList.length,
+      }).then((res) => {
+        setOrderHotkeyList((orderHotkeyList) => [...orderHotkeyList, newData]);
+      });
+    } else {
+      const newData: CHLType = {
+        hotkey: 'none',
+        command: 'none',
+        isActive: false,
+      };
+
+      setHotkeyListData({
+        type,
+        data: newData,
+        idx: coinHotkeyList.length,
+      }).then((res) => {
+        setCoinHotkeyList((coinHotkeyList) => [...coinHotkeyList, newData]);
+      });
+    }
+  };
 
   return (
     <main className='hotkey-main min-h-[500px]'>
@@ -51,6 +87,7 @@ const Hotkey: React.FC = () => {
             <button
               className='bg-mainColor text-white w-[200px] h-[50px] 
             text-[14px] font-semibold rounded-xl hover:bg-mainUpColor'
+              onClick={() => createButtonHandle('order')}
             >
               + 단축키 추가하기
             </button>
@@ -72,15 +109,15 @@ const Hotkey: React.FC = () => {
         </li>
         <li>
           <ul className='default-list'>
-            {coinHotkeyList.map((el, idx) => {
+            {coinHotkeyList.map((el, idx) => (
               <HotkeyListCoin
                 key={uuidv4()}
                 isFixed={idx < 4 ? true : false}
                 idx={idx}
                 coinHotkeyData={el}
                 setCoinHotkeyList={setCoinHotkeyList}
-              />;
-            })}
+              />
+            ))}
           </ul>
           <ul className='added-list'></ul>
           <div
@@ -90,6 +127,7 @@ const Hotkey: React.FC = () => {
             <button
               className='bg-mainColor text-white w-[200px] h-[50px] 
             text-[14px] font-semibold rounded-xl hover:bg-mainUpColor'
+              onClick={() => createButtonHandle('coin')}
             >
               + 단축키 추가하기
             </button>

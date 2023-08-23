@@ -36,6 +36,8 @@ const HotkeyListOrder = ({
     type: 'caution',
   });
 
+  const [isMouseOver, setIsMouseOver] = useState(false);
+
   const switchButtonHandle = () => {
     if (hotkeyOrder.isActive === false) {
       if (
@@ -50,6 +52,11 @@ const HotkeyListOrder = ({
           idx,
         }).then((res) => {
           setHotkeyOrder(newHotkeyOrder);
+          setOrderHotkeyList((prev) => {
+            const updated = prev;
+            updated[idx] = newHotkeyOrder;
+            return updated;
+          });
         });
       } else {
         setAlertStatus({ ...alertStatus, isOpen: true });
@@ -62,14 +69,45 @@ const HotkeyListOrder = ({
         idx,
       }).then((res) => {
         setHotkeyOrder(newHotkeyOrder);
+        setOrderHotkeyList((prev) => {
+          const updated = prev;
+          updated[idx] = newHotkeyOrder;
+          return updated;
+        });
       });
     }
+  };
+
+  const deleteButtonHandle = () => {
+    if (isFixed) {
+      return;
+    }
+    setHotkeyListData({
+      type: 'order',
+      data: 'delete',
+      idx,
+    }).then((res) => {
+      setOrderHotkeyList((prev) => prev.filter((el, index) => index !== idx));
+    });
   };
 
   return (
     <li className='hotkey-list-order-container border-t-[1px] border-borderColor'>
       <form className='h-[80px] flex justify-between items-center px-5'>
-        <div className='list-numb basis-[7%] flex items-center'>{idx + 1}</div>
+        <div
+          className={`list-numb basis-[7%] flex items-center text-center pl-[4px] ${
+            isMouseOver && 'cursor-pointer text-lg pl-[0px]'
+          }`}
+          onMouseOver={() => {
+            !isFixed && setIsMouseOver(true);
+          }}
+          onMouseLeave={() => {
+            !isFixed && setIsMouseOver(false);
+          }}
+          onClick={deleteButtonHandle}
+        >
+          {!isFixed && isMouseOver ? 'X' : idx + 1}
+        </div>
 
         <div className='hotkey-selection basis-[43%] flex'>
           <div className='w-full flex justify-center items-center'>

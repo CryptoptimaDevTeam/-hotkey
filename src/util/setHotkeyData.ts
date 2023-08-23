@@ -2,7 +2,7 @@ import { OHLType, CHLType } from './../static/localData';
 
 interface SetHotkeyListDataType {
   type: 'order' | 'coin';
-  data: OHLType | CHLType;
+  data: OHLType | CHLType | 'delete';
   idx: number;
 }
 
@@ -14,16 +14,21 @@ export function setHotkeyListData({
   return new Promise((resolve) => {
     chrome.storage.sync.get(null, (res) => {
       const curHotkeyData = res.hotkey;
-
       let newListdata;
+      let newHotkeyData;
+
       if (type === 'order') {
         newListdata = curHotkeyData.orderHotkeyList;
       } else if (type === 'coin') {
         newListdata = curHotkeyData.coinHotkeyList;
       }
-      newListdata[idx] = data;
 
-      let newHotkeyData;
+      if (data === 'delete') {
+        newListdata.splice(idx, 1);
+      } else {
+        newListdata[idx] = data;
+      }
+
       if (type === 'order') {
         newHotkeyData = {
           ...curHotkeyData,
